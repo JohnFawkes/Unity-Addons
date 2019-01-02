@@ -1,22 +1,16 @@
-# APK-Patcher: Recovery Flashable Zip
-# osm0sis @ xda-developers
-
-baksmali() {
-  ANDROID_DATA=$ap ANDROID_ROOT=/system LD_LIBRARY_PATH=/system/lib dalvikvm -Xbootclasspath:/system/framework/core.jar:/system/framework/conscrypt.jar:/system/framework/apache-xml.jar -classpath $baksmali org.jf.baksmali.main -o classout $1;
-  test $? != 0 && abort "Decompiling APK classes failed. Aborting...";
-}
-smali() {
-  ANDROID_DATA=$ap ANDROID_ROOT=/system LD_LIBRARY_PATH=/system/lib dalvikvm -Xbootclasspath:/system/framework/core.jar:/system/framework/conscrypt.jar:/system/framework/apache-xml.jar -classpath $smali org.jf.smali.main -o classes.dex classout;
-  test $? != 0 && abort "Rebuilding APK classes failed. Aborting...";
-}
-apktool_d() {
-  ANDROID_DATA=$ap ANDROID_ROOT=/system LD_LIBRARY_PATH=/system/lib dalvikvm -Xbootclasspath:/system/framework/core.jar:/system/framework/conscrypt.jar:/system/framework/apache-xml.jar -classpath $apktool brut.apktool.Main d --frame-path $ap/framework --no-src -o resout $1;
-  test $? != 0 && abort "Decoding APK resources failed. Aborting...";
-}
-apktool_b() {
-  ANDROID_DATA=$ap ANDROID_ROOT=/system LD_LIBRARY_PATH=/system/lib dalvikvm -Xbootclasspath:/system/framework/core.jar:/system/framework/conscrypt.jar:/system/framework/apache-xml.jar -classpath $apktool brut.apktool.Main b --frame-path $ap/framework --aapt $bin/aapt --copy-original -o $1 resout;
-  test $? != 0 && abort "Rebuilding APK resources failed. Aborting...";
-}
+# APK-Patcher Lite: Recovery Flashable Zip
+# by djb77 @ xda-developers
+# Based on APK-Patcher by osm0sis @ xda-developers
+#
+# APK-Patcher Lite Changelog:
+#
+# - Initial transformation to Lite vesrion, based on the APK
+#   Patching method used for TGP ROM.
+# - Removed Baksmali / Smail / Apktool support, instead it will 
+#   now copy pre-compiled files (xml, dex etc) to the APK file.
+# - New script added to remove unwanted files from the APK,
+#   a sample is located at scripts/apkname.sh. 
+#   Please rename the .sh to the APK name you want to work on.
 
 # working directory variables
 ap=$INSTALLER/addon/APK-Patcher;
@@ -34,7 +28,8 @@ smali=$bin/smali-*-dexed.jar;
 apktool=$bin/apktool_*-dexed.jar;
 
 ui_print " ";
-ui_print "- Running APK Patcher by osm0sis & djb77 @ xda-developers-";
+ui_print "- Running APK Patcher Lite by djb77 @ xda-developers-";
+ui_print "  Based on APK Patcher by osm0sis @ xda-developers";
 ui_print " ";
 
 ui_print "   Patching files...";
