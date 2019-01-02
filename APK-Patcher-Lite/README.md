@@ -6,6 +6,9 @@ Flashable Zip Template for Modifying System APKs On-Device
 
 Based on [APK-Patcher](https://github.com/osm0sis/APK-Patcher) by osm0sis @ xda-developers
 
+## Compatibility Note
+
+Not compatible with x86 devices due to lack of x86 static compiled zip/zipalign binaries
 
 ## Information
 
