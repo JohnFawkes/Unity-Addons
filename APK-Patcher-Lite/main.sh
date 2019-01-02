@@ -14,7 +14,7 @@
 
 # working directory variables
 ap=$INSTALLER/addon/APK-Patcher;
-bin=$ap/tools;
+bin=$ap/$ARCH32/tools;
 patch=$ap/patch;
 script=$ap/script;
 
