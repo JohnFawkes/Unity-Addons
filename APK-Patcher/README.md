@@ -1,4 +1,4 @@
-# APK-Patcher Lite
+# APK-Patcher Lite by djb77 @ xda-developers
 
 Flashable Zip Template for Modifying System APKs On-Device
 
