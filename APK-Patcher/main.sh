@@ -19,12 +19,13 @@ apktool_b() {
 }
 
 # working directory variables
-ap=`pwd`;
+ap=$INSTALLER/addon/APK-Patcher;
 bin=$ap/tools;
 patch=$ap/patch;
 script=$ap/script;
 
 # set up extracted files and directories
+rm -f $patch/placeholder $script/placeholder
 chmod -R 755 $bin $script $ap/*.sh;
 
 # dexed bak/smali and apktool jars (via: dx --dex --output=classes.dex <file>.jar)
