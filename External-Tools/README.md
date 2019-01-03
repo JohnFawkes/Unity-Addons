@@ -11,4 +11,4 @@ Note that you may compress the tools folder into a tar.xz to save space
 Included binaries:
 * sesearch by [xmikos @Github ](https://github.com/xmikos/setools-android)
 * xmlstarlet compiled by james34602 @Github
-* keycheck compiled for arm by someone755 @Github
+* keycheck compiled for arm by [someone755 @Github](https://github.com/someone755/kerneller/blob/master/extract/tools/keycheck)
