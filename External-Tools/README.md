@@ -8,6 +8,8 @@ Place other cpu architecture independent tools into the other folder and unity w
 
 Note that you may compress the tools folder into a tar.xz to save space
 
+If you want to include a binary into your module itself (like for a boot script), the binaries are located at: $INSTALLER/common/unityfiles/tools during the (un)install process
+
 Included binaries:
 * sesearch by [xmikos @Github ](https://github.com/xmikos/setools-android)
 * xmlstarlet compiled by james34602 @Github
