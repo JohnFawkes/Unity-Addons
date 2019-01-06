@@ -104,6 +104,9 @@ if ! $MAGISK; then
   }
 fi
 
+chmod -R 0755 $INSTALLER/addon/Ramdisk-Patcher
+cp -R $INSTALLER/addon/External-Tools/tools $INSTALLER/common/unityfiles 2>/dev/null
+cp -f $INSTALLER/common/unityfiles/tools/$ARCH32/magiskinit $INSTALLER/common/unityfiles/tools/$ARCH32/magiskpolicy
 unpack_ramdisk
 
 # Fix print stuff - test it out
