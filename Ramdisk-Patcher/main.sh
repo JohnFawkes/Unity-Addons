@@ -107,5 +107,3 @@ fi
 chmod -R 0755 $INSTALLER/addon/Ramdisk-Patcher
 cp -R $INSTALLER/addon/Ramdisk-Patcher/tools $INSTALLER/common/unityfiles 2>/dev/null
 cp -f $INSTALLER/common/unityfiles/tools/$ARCH32/magiskinit $INSTALLER/common/unityfiles/tools/$ARCH32/magiskpolicy
-
-# Fix print stuff - test it out
