@@ -1,3 +1,4 @@
+[ -d "$RD" ] || unpack_ramdisk
 rm -f $INSTALLER/addon/Ramdisk-Patcher/ramdisk/placeholder
 # Remove ramdisk mod if exists
 if [ "$(grep "#$MODID-UnityIndicator" $RD/init.rc 2>/dev/null)" ]; then
