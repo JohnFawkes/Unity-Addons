@@ -1,13 +1,5 @@
 #!/system/bin/sh
 MODPATH=${0%/*}
-MAGISK=<MAGISK>
-SYSOVERRIDE=<SYSOVERRIDE>
-MODID=<MODID>
-ROOT=<ROOT>
-SYS=<SYS>
-VEN=<VEN>
-LIBDIR=<LIBDIR>
-INFO=<INFO>
 
 if [ ! "$(grep "#$MODID-UnityIndicator" /init.rc 2>/dev/null)" ]; then
   mount -o rw,remount /system
