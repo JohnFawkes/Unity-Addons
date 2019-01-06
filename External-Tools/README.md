@@ -6,8 +6,6 @@ Place arm and x86 compiled binaries into their respective folders inside tools d
 
 Place other cpu architecture independent tools into the other folder and unity will load them/add them to path automatically so you can call them like any other binary (no need to specify path)
 
-Note that you may compress the tools folder into a tar.xz to save space
-
 If you want to include a binary into your module itself (like for a boot script), the binaries are located at: $INSTALLER/common/unityfiles/tools during the (un)install process
 
 Included binaries:
