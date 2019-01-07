@@ -1,0 +1,269 @@
+﻿### LICENSE:
+#
+# Copyright (C) 2011 Ahmad Amarullah ( http://amarullz.com/ )
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+### FILE INFO:
+#
+# AROMA Installer 2.70 - AROMA Installer Test Script Configuration
+#       (c) 2011-2012 by Ahmad Amarullah
+#           amarullz - xda-developers
+#           http://www.amarullz.com/
+#
+#       Binary Version  : 2.70B
+#       Binary Codename : Flamboyan
+#
+ini_set("rom_name",             "Ainur Sauron");
+ini_set("rom_version",          "MK III");
+ini_set("rom_author",           "UltraM8, Zackptg5, Ahrion, James34602, LazerL0rd");
+
+ini_set("force_colorspace", "rgba");
+
+splash(
+  #Duration 2000ms / 2 seconds
+    2000,
+    "splash"
+);
+
+fontresload("0", "ttf/Roboto-Regular.ttf", "8");
+fontresload("1", "ttf/Roboto-Regular.ttf", "9");
+theme("material_green");
+
+selectbox(
+  "Continue?",
+  "Some devices have issues with aroma.\n"+
+  "If you have one of these devices, select 'Exit' below",
+  "icons/alert",
+  "aroma.prop",
+  
+  "Continue with Aroma Install","Use Aroma for Configuration",1,
+  "Exit Aroma Installer","Use Legacy sauron_useroptions File for Configuration",0
+);
+
+if file_getprop("/tmp/aroma/aroma.prop","selected.0") == "1"; then
+  viewbox(
+     "(Un)Install Note",
+     "Note that the installer will still autodetect if mod is installed or not.\n"+
+     "So if you select uninstall when the mod isn't installed, it will exit.\n"+
+     "However, if you want to change options, the installer will accomodate that too.\n\n"+
+     "Also note that the installer will save your user options so you can reuse them in the event of an upgrade\n\n\n"+
+     "MAGISK USERS: If using this with another audio mod, install audio modification library from magisk repo!",
+     "icons/info"
+  );
+
+  selectbox(
+    "Install/Uninstall",
+    "Please select:",
+    "icons/personalize",
+    "install.prop",
+    
+    "Install Ainur Sauron","",1,
+    "Uninstall Ainur Sauron","",0
+  );
+
+  if file_getprop("/tmp/aroma/install.prop","selected.0") == "1"; then
+    selectbox(
+      "Saved User Options",
+      "Use prior selections?",
+      "icons/personalize",
+      "saved.prop",
+      
+      "Yes","",0,
+      "No","",1
+    );
+    if file_getprop("/tmp/aroma/saved.prop","selected.0") == "2"; then
+      checkbox(
+        "Sauron User Options",
+        "Please Select Options:",
+        "icons/personalize",
+        "userops.prop",
+
+        "Universal Options - Note that Fmas is standard already in oreo","",2,
+        "Fraunhofer (Fmas) virtualizer & downmixer drivers","Replaces &/or extends standard processing effects",0,
+        "Audio Policy Patches","Highly unstable, might lead to sound loss - use at your own risk!",0,
+        "Music Volume Steps","Set the desired number of steps for music volume contol",0,
+        "Disable Codec Power Gating","May break sound!",0,
+        
+        "Stable Qualcomm Only Options","",2,
+        "Audiosphere SW & HW effect drivers","Qualcomm 3D audio effect",0,
+        "Shoebox effect drivers","Seems to be a new 3D audio effect from Qualcomm",0,
+        "Reverbwrapper drivers","Can apply effects to PCM conversion streams - ! UNSTABLE ! - might cause bootloops",0,
+        "Aptx/HD dirvers & HW offloadable cappi modules & props","",0,
+        
+        "Experimental Qualcomm Only Options - Use at your own risk!","",2,
+        "Audio Output Policy Patches","Highly unstable, might lead to sound loss - use at your own risk!",0,
+        "Remove compander","Might lead to crackling sounds",0,
+        "Force QC bitsize","DO NOT USE if you have any kernel based audio modifications",0,
+        "Resampling","Leave blank for native rate",0,
+        "Change Impedance","Impedance feature to support native ohms of your headphones",0,
+        "Force resampling for sd660/670/710/845","!! MIGHT WORK ONLY FOR PIE (android9/sdk28) ROMS !!",0,
+        
+        "Exynos Only Options","",2,
+        "Resampling","Leave blank for native rate",0,
+        
+        "MTK Only Options","",2,
+        "Change Impedance","Impedance feature to support native ohms of your headphones",0,
+        "High-pass filter for codec","Select this to turn it on/off. Leave blank for default",0,
+        "Change gain for Headphones & Lineout playback","Setting extreme values might lead to deafness :)",0
+      );
+      if file_getprop("/tmp/aroma/userops.prop","item.3.3") == "1"; then
+        selectbox(
+          "Bitsize Selection",
+          "Please select bitsize:\n"+
+          "Note that 32bit is ONLY supported by msm820+ because the qualcomm codec before Aqstic only supported 24/192\n"+
+          "If you select 32bit with a device older than msm820, you're selection will be ignored (bitsize will be unchanged)",
+          "icons/personalize",
+          "sub_bitsize.prop",
+          
+          "16","",1,
+          "24","",0,
+          "32","",0
+        );
+      endif;
+      if file_getprop("/tmp/aroma/userops.prop","item.3.4") == "1"; then
+        selectbox(
+          "Resampling Selection",
+          "Please select frequency:",
+          "icons/personalize",
+          "sub_resample.prop",
+          
+          "44100","",1,
+          "48000","",0,
+          "96000","",0,
+          "192000","",0
+        );
+      endif;
+      if file_getprop("/tmp/aroma/userops.prop","item.3.5") == "1"; then
+        selectbox(
+          "Impedance Selection",
+          "Please select impedance:",
+          "icons/personalize",
+          "sub_impedance.prop",
+          
+          "16Ω","",1,
+          "32Ω","",0
+        );
+      endif;
+      if file_getprop("/tmp/aroma/userops.prop","item.3.6") == "1"; then
+        selectbox(
+          "sd660/670/710/845 Resampling Selection",
+          "Please select frequency:",
+          "icons/personalize",
+          "sub_btsmpl.prop",
+          
+          "44100","",1,
+          "48000","",0,
+          "88200","",0,
+          "96000","",0,
+          "176400","",0,
+          "192000","",0
+        );
+      endif;
+      if file_getprop("/tmp/aroma/userops.prop","item.4.1") == "1"; then
+        selectbox(
+          "Resampling Selection",
+          "Please select frequency:",
+          "icons/personalize",
+          "sub_resample.prop",
+          
+          "11025","",0,
+          "12000","",0,
+          "16000","",0,
+          "22050","",0,
+          "24000","",0,
+          "32000","",0,
+          "44100","",1,
+          "48000","",0,
+          "88200","",0,
+          "96000","",0,
+          "17640","",0,
+          "192000","",0,
+          "4KH8","",0
+        );
+      endif;
+      if file_getprop("/tmp/aroma/userops.prop","item.5.1") == "1"; then
+        selectbox(
+          "Impedance Selection",
+          "Please select impedance:",
+          "icons/personalize",
+          "sub_impedance.prop",
+          
+          "16Ω","",1,
+          "32Ω","",0
+        );
+      endif;
+      if file_getprop("/tmp/aroma/userops.prop","item.5.2") == "1"; then
+        selectbox(
+          "Gain Selection",
+          "Please select gain:",
+          "icons/personalize",
+          "sub_mgain.prop",
+          
+          "8Db","",0,
+          "7Db","",0,
+          "6Db","",0,
+          "5Db","",0,
+          "4Db","",0,
+          "3Db","",0,
+          "2Db","",0,
+          "1Db","",0,
+          "0Db","",1,
+          "-1Db","",0,
+          "-2Db","",0,
+          "-3Db","",0,
+          "-4Db","",0,
+          "-5Db","",0,
+          "-6Db","",0,
+          "-7Db","",0,
+          "-8Db","",0,
+          "-9Db","",0,
+          "-10Db","",0,
+          "-40Db","",0
+        );
+      endif;
+      if file_getprop("/tmp/aroma/userops.prop","item.5.3") == "1"; then
+        selectbox(
+          "High-pass Filter Selection",
+          "Please select On or Off:",
+          "icons/personalize",
+          "sub_hpfilter.prop",
+          
+          "On","",1,
+          "Off","",0
+        );
+      endif;
+    endif;
+  endif;
+else
+  selectbox(
+    "Install/Uninstall",
+    "Please select:",
+    "icons/personalize",
+    "install.prop",
+    
+    "Install Ainur Sauron","",1,
+    "Uninstall Ainur Sauron","",0
+  );
+endif;
+
+# Next Button is "Finish"
+ini_set("text_next", "Finish");
+ini_set("icon_next", "@finish");
+
+install(
+  "Installing",
+  "Executing chosen parameters.\n\n" + 
+  "Please wait until finished...",
+  "icons/install"
+);
