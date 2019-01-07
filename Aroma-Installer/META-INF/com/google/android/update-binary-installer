@@ -1,10 +1,9 @@
 #!/sbin/sh
-##########################################################################################
-#
-# Unity Installer
-# by ahrion & zackptg5
-#
-##########################################################################################
 
-AROMA=/tmp/aroma
 # Add stuff for creation of prop files  - store in cache or something - loop through them
+
+# Save selections to temp directory for main installer
+mkdir -p /cache/$MODID
+for i in /tmp/aroma/*.prop; do
+  cp -f $i /cache/$MODID/$(basename $i)
+done
