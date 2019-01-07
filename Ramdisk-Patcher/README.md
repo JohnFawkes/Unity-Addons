@@ -1,10 +1,8 @@
-# Ramdisk Patcher
+# Ramdisk Patcher - Addon for ramdisk patching
 
-Addon for ramdisk patching
+## Instructions:
+*Place ramdisk files into the ramdisk folder
+*Add install and uninstall logic to ramdiskinstall and ramdiskuninstall respectively
 
-Place ramdisk files into the ramdisk folder
-
-Add install and uninstall logic to ramdiskinstall and ramdiskuninstall respectively
-
-Included binaries:
-* magiskboot and magiskinit (also magiskpolicy) by [topjohnwu @github](https://github.com/topjohnwu)
+## Included Binaries/Credits:
+* magiskboot and magiskinit/magiskpolicy by [topjohnwu @github](https://github.com/topjohnwu)
