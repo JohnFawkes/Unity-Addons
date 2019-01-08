@@ -18,9 +18,12 @@ else
   fi
   ui_print "   Creating Aroma installer and open recovery script..."
   cp -f $ZIP /cache/$MODID.zip
-  chmod -R 0755 $INSTALLER/addon/Aroma-Installer/tools
-  $INSTALLER/addon/Aroma-Installer/tools/$ARCH32/zip -r -0 /cache/$MODID-Aroma.zip $INSTALLER/META-INF
+  cd $INSTALLER/addon/Aroma-Installer
+  chmod -R 0755 tools
+  sed -i "2i MODID=$MODID" META-INF/com/google/android/update-binary-installer
+  tools/$ARCH32/zip -r -0 /cache/$MODID-Aroma.zip META-INF
   echo -e "install /cache/$MODID-Aroma.zip\ninstall /cache/$MODID.zip" > /cache/recovery/openrecoveryscript
+  cd /
   ui_print "   Will reboot and launch aroma installer"
   cleanup
   sleep 2
