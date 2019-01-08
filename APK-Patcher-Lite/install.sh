@@ -12,6 +12,9 @@
 #   a sample is located at scripts/apkname.sh. 
 #   Please rename the .sh to the APK name you want to work on.
 
+# Unset zip variable so it won't mess with zip binary
+OZIP=$ZIP; ZIP=""
+
 # working directory variables
 ap=$INSTALLER/addon/APK-Patcher;
 bin=$ap/$ARCH32/tools;
@@ -78,5 +81,7 @@ ui_print " ";
 
 # extra required non-patch changes
 . $ap/extracmd.sh;
+
+ZIP=$OZIP
 
 cd /
