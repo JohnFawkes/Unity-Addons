@@ -7,7 +7,7 @@ if [ -d "/cache/$MODID" ]; then
     cp_ch -n $i $UNITY/system/etc/$MODID/$(basename $i)
   done
   rm -f /cache/$MODID.zip /cache/$MODID-Aroma.zip /cache/recovery/openrecoveryscript
-  rm -rf /cache/$MODID  
+  rm -rf /cache/$MODID
 else
   if [ -d "$TMPDIR/aroma" ]; then
     # Move previous selections to temp directory for reuse if chosen
@@ -26,6 +26,7 @@ else
   tools/$ARCH32/zip -qr0 /cache/$MODID-Aroma META-INF
   ZIP=$OZIP
   cd /
+  echo -e "install /cache/$MODID-Aroma.zip\ninstall /cache/$MODID.zip\nreboot recovery" > /cache/recovery/openrecoveryscript
   ui_print "   Will reboot and launch aroma installer"
   cleanup
   sleep 2
