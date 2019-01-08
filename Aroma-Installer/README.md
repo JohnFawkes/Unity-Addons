@@ -6,7 +6,9 @@ Any device with TWRP that Aroma is compatible with
 ## Instructions
 * Modify the aroma-config and contents of the aroma folder in META-INF/com/google/android for your installer (Don't touch the update-binary/script files) [See Aroma documentation](https://forum.xda-developers.com/showthread.php?t=1461712)
 * Replace update-binary with aroma binary of choice (2.70RC2 is included)
+* Zip the META-INF folder and name it "aroma.zip"
 * Add whatever install logic you want to the main unity installer
+* If you only want aroma to run in a certain condition, you can add that to the top of the install.sh script in the aroma addon directory
 
 ## Notes for Aroma-config (applicable during aroma zip flashing only):
 * All aroma selections will be saved in /tmp/aroma directory during the aroma zip install
