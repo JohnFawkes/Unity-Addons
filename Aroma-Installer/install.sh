@@ -1,7 +1,5 @@
 # Aroma Installer
 
-# Add TWRP detection here - abort if no twrp
-
 if [ -d "/cache/$MODID" ]; then
   ui_print "   Continuing install with aroma options"
   # Save selections to Mod
