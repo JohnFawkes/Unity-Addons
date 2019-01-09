@@ -21,7 +21,7 @@ else
   cd $INSTALLER/addon/Aroma-Installer
   sed -i "2i MODID=$MODID" META-INF/com/google/android/update-binary-installer
   chmod -R 0755 tools
-  cp -R $INSTALLER/addon/Aroma-Installer/tools $INSTALLER/common/unityfiles 2>/dev/null
+  cp -R tools $INSTALLER/common/unityfiles 2>/dev/null
   zip -qr0 /cache/$MODID-Aroma META-INF
   cd /
   echo -e "install /cache/$MODID-Aroma.zip\ninstall /cache/$MODID.zip\nreboot recovery" > /cache/recovery/openrecoveryscript
