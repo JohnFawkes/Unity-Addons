@@ -17,14 +17,11 @@ else
     done
   fi
   ui_print "   Creating Aroma installer and open recovery script..."
-  cp -f $ZIP /cache/$MODID.zip
-  # Unset zip variable so it won't mess with zip binary
-  OZIP=$ZIP; ZIP=""
+  cp -f $ZIPFILE /cache/$MODID.zip
   cd $INSTALLER/addon/Aroma-Installer
   sed -i "2i MODID=$MODID" META-INF/com/google/android/update-binary-installer
   chmod -R 0755 tools
   tools/$ARCH32/zip -qr0 /cache/$MODID-Aroma META-INF
-  ZIP=$OZIP
   cd /
   echo -e "install /cache/$MODID-Aroma.zip\ninstall /cache/$MODID.zip\nreboot recovery" > /cache/recovery/openrecoveryscript
   ui_print "   Will reboot and launch aroma installer"

@@ -13,10 +13,6 @@ The method used here is a similar method used in my ROMs to patch files, where i
 
 * Make edits to envvar.sh, and also to extracmd.sh if needed
 
-## Notes
-* Note that the ZIP variable interferes with zip binary and so it's been renamed to OZIP for this addon ONLY (rest of unity is unaffected). So use OZIP instead of ZIP for extracmd.sh
-
-
 ### Properties / Variables
 * apklist="";
 
