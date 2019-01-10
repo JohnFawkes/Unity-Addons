@@ -17,11 +17,17 @@ ui_print() {
   echo -e "ui_print $1\nui_print" >> /proc/self/fd/$OUTFD
 }
 
+is_mounted() {
+  grep -q " `readlink -f $1` " /proc/mounts 2>/dev/null
+  return $?
+}
+
+is_mounted /cache || { ui_print "Mounting /cache..."; ui_print " "; mount /cache; } || { ui_print "! Unable to mount partitions"; exit 1; }
 ui_print "Saving selections..."
-ui_print " "
 # Save selections to temp directory for main installer
 mkdir -p /cache/$MODID
 for i in /tmp/aroma/*.prop; do
   cp -f $i /cache/$MODID/$(basename $i)
 done
+ui_print " "
 ui_print "Selections saved!"

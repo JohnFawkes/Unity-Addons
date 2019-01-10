@@ -9,11 +9,13 @@ if [ -d "/cache/$MODID" ]; then
   rm -f /cache/$MODID.zip /cache/$MODID-Aroma.zip /cache/recovery/openrecoveryscript
   rm -rf /cache/$MODID
 else
+  # Delete space hogging boot_log folder
+  rm -rf /cache/boot_log
   if [ -d "$TMPDIR/aroma" ]; then
     # Move previous selections to temp directory for reuse if chosen
     ui_print "   Backup up previous selections..."
     for FILE in $TMPDIR/aroma/*.prop; do
-      cp_ch -nn $FILE /cache/$MODID/$(basename $FILE)
+      cp_ch -i $FILE /cache/$MODID/$(basename $FILE)
     done
   fi
   ui_print "   Creating Aroma installer and open recovery script..."
@@ -27,6 +29,6 @@ else
   echo -e "install /cache/$MODID-Aroma.zip\ninstall /cache/$MODID.zip\nreboot recovery" > /cache/recovery/openrecoveryscript
   ui_print "   Will reboot and launch aroma installer"
   cleanup
-  sleep 2
+  sleep 3
   reboot recovery
 fi
