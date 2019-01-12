@@ -4,8 +4,8 @@ chmod -R 0755 $INSTALLER/addon/Volume-Key-Selector/tools
 cp -R $INSTALLER/addon/Volume-Key-Selector/tools $INSTALLER/common/unityfiles 2>/dev/null
 
 keytest() {
-  ui_print " - Vol Key Test -"
-  ui_print "   Press a Vol Key:"
+  ui_print "- Vol Key Test -"
+  ui_print "  Press a Vol Key"
   (/system/bin/getevent -lc 1 2>&1 | /system/bin/grep VOLUME | /system/bin/grep " DOWN" > $INSTALLER/events) || return 1
   return 0
 }
@@ -38,8 +38,7 @@ chooseportold() {
   elif [ $SEL -eq $DOWN ]; then
     return 1
   else
-    ui_print "   Vol key not detected!"
-    abort "   Use name change method in TWRP"
+    abort "  Vol key not detected! Aborting!"
   fi
 }
 
@@ -47,11 +46,11 @@ if keytest; then
   VKSEL=chooseport
 else
   VKSEL=chooseportold
-  ui_print "   ! Legacy device detected! Using old keycheck method"
+  ui_print "  ! Legacy device detected! Using old keycheck method"
   ui_print " "
   ui_print "- Vol Key Programming -"
-  ui_print "   Press Vol Up Again:"
+  ui_print "  Press Vol Up Again:"
   $VKSEL "UP"
-  ui_print "   Press Vol Down"
+  ui_print "  Press Vol Down"
   $VKSEL "DOWN"
 fi
