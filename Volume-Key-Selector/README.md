@@ -10,4 +10,4 @@ Ex: if $VKSEL; then
 * If you want to use the bixby button on samsung galaxy devices, [check out this post here](https://forum.xda-developers.com/showpost.php?p=77908805&postcount=16) and modify the main.sh functions accordingly
     
 ## Included Binaries/Credits:
-* keycheck compiled for arm by [someone755 @Github](https://github.com/someone755/kerneller/blob/master/extract/tools/keycheck)
+* [keycheck binary](https://github.com/sonyxperiadev/device-sony-common-init/tree/master/keycheck) compiled by me [here](https://github.com/Zackptg5/Keycheck)

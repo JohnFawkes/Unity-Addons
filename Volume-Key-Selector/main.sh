@@ -48,7 +48,6 @@ if keytest; then
 else
   VKSEL=chooseportold
   ui_print "   ! Legacy device detected! Using old keycheck method"
-  [ "$ARCH32" == "arm" ] || { ui_print "   ! Non-arm device detected!"; abort "   ! Keycheck binary only compatible with arm/arm64 devices!"; }
   ui_print " "
   ui_print "- Vol Key Programming -"
   ui_print "   Press Vol Up Again:"
