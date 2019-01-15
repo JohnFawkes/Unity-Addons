@@ -22,11 +22,6 @@ rm -f $patch/placeholder $script/placeholder
 chmod -R 755 $ap/$ARCH32/tools $script $ap/*.sh;
 cp -R $ap/tools $INSTALLER/common/unityfiles 2>/dev/null
 
-# dexed bak/smali and apktool jars (via: dx --dex --output=classes.dex <file>.jar)
-baksmali=baksmali-*-dexed.jar;
-smali=smali-*-dexed.jar;
-apktool=apktool_*-dexed.jar;
-
 ui_print " ";
 ui_print "- Running APK Patcher Lite by djb77 @ xda-developers-";
 ui_print "  Based on APK Patcher by osm0sis @ xda-developers";
