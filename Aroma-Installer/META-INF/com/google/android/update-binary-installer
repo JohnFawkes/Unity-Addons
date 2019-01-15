@@ -22,12 +22,13 @@ is_mounted() {
   return $?
 }
 
-is_mounted /cache || { ui_print "Mounting /cache..."; ui_print " "; mount /cache; } || { ui_print "! Unable to mount partitions"; exit 1; }
+ui_print "- Mounting /data, /cache"
+is_mounted /data || mount /data || is_mounted /cache || mount /cache || { ui_print "! Unable to mount partitions"; exit 1; }
 ui_print "Saving selections..."
 # Save selections to temp directory for main installer
-mkdir -p /cache/$MODID
+mkdir -p $CACHEDIR/$MODID
 for i in /tmp/aroma/*.prop; do
-  cp -f $i /cache/$MODID/$(basename $i)
+  cp -f $i $CACHEDIR/$MODID/$(basename $i)
 done
 ui_print " "
 ui_print "Selections saved!"
