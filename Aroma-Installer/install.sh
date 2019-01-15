@@ -1,6 +1,6 @@
 # Aroma Installer
 
-[ -L /cache ] && CACHEDIR=/data/cache || CACHEDIR=/cache
+[ ! -d /cache -o -L /cache ] && CACHEDIR=/data/cache || CACHEDIR=/cache
 
 if [ -d "$CACHEDIR/$MODID" ]; then
   ui_print "   Continuing install with aroma options"
