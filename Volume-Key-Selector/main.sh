@@ -12,11 +12,14 @@ keytest() {
 
 chooseport() {
   # Original idea by chainfire @xda-developers, improved on by ianmacd @xda-developers
+  #note from chainfire @xda-developers: getevent behaves weird when piped, and busybox grep likes that even less than toolbox/toybox grep
   while true; do
-    /system/bin/getevent -lqc 1 | awk '{ print $(NF-1) }' | grep "KEY_VOLUME" > $INSTALLER/events
-    [ -s $INSTALLER/events ] && break
+    /system/bin/getevent -lc 1 2>&1 | /system/bin/grep VOLUME | /system/bin/grep " DOWN" > $INSTALLER/events
+    if (`cat $INSTALLER/events 2>/dev/null | /system/bin/grep VOLUME >/dev/null`); then
+      break
+    fi
   done
-  if (grep KEY_VOLUMEUP $INSTALLER/events >/dev/null); then
+  if (`cat $INSTALLER/events 2>/dev/null | /system/bin/grep VOLUMEUP >/dev/null`); then
     return 0
   else
     return 1
