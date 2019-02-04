@@ -1,5 +1,8 @@
 # APK-Patcher Lite - Flashable Zip Template for Modifying System APKs On-Device
 
+## Compatibility
+Android Lollipop 5.0+ (API 21+)
+
 ## Information
 This is a modified version of APK-Patcher that will delete / inject files into System APK files instead of using a baksmali / apktool method.
 
