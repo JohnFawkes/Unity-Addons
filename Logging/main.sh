@@ -36,7 +36,6 @@ fi
 
 if [ -d /cache ]; then CACHELOC=/cache; else CACHELOC=/data/cache; fi
 
-exec &> $INSTLOG
 chmod -R 0755 $TMPDIR/addon/Logging
 cp -R $TMPDIR/addon/Logging $UF/tools 2>/dev/null
 PATH=$UF/tools/Logging/:$PATH
