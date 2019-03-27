@@ -1,23 +1,21 @@
 # External Tools
-exec &> $INSTLOG
-chmod -R 0755 $INSTALLER/addon/Logging
-cp -R $INSTALLER/addon/Logging $INSTALLER/common/unityfiles 2>/dev/null
-PATH=$INSTALLER/common/unityfiles/Logging/:$PATH
-cp -f $INSTALLER/common/unityfiles/Logging/main.sh $UNITY/system/bin/logging.sh
-chmod 0755 $UNITY/bin/logging.sh
-chown 0.2000 $UNITY/system/bin/logging.sh
+grep_prop() {
+  local REGEX="s/^$1=//p"
+  shift
+  local FILES=$@
+  [ -z "$FILES" ] && FILES='/system/build.prop'
+  sed -n "$REGEX" $FILES 2>/dev/null | head -n 1
+}
 
-if $BOOTMODE; then
-  SDCARD=/storage/emulated/0
-else
-  SDCARD=/data/media/0
-fi
-
-if [ -d /cache ]; then CACHELOC=/cache; else CACHELOC=/data/cache; fi
-
-MODTITLE=$(grep_prop name $INSTALLER/module.prop)
-VER=$(grep_prop version $INSTALLER/module.prop)
-AUTHOR=$(grep_prop author $INSTALLER/module.prop)
+MODDIRNAME=modules_update
+MODULEROOT=$NVBASE/$MODDIRNAME
+MODID=`grep_prop id $TMPDIR/module.prop`
+MODPATH=$MODULEROOT/$MODID
+NVBASE=/data/adb
+MOUNTEDROOT=$NVBASE/modules/$MODID
+MODTITLE=$(grep_prop name $TMPDIR/module.prop)
+VER=$(grep_prop version $TMPDIR/module.prop)
+AUTHOR=$(grep_prop author $TMPDIR/module.prop)
 INSTLOG=$MODPATH/$MODID-install.log
 TMPLOG=$MODID_logs.log
 TMPLOGLOC=$MODPATH/$MODID_logs
@@ -29,6 +27,22 @@ $MODPATH/$MODID-install.log
 $SDCARD/$MODID-debug.log
 /data/adb/magisk_debug.log
 "
+
+if $BOOTMODE; then
+  SDCARD=/storage/emulated/0
+else
+  SDCARD=/data/media/0
+fi
+
+if [ -d /cache ]; then CACHELOC=/cache; else CACHELOC=/data/cache; fi
+
+exec &> $INSTLOG
+chmod -R 0755 $TMPDIR/addon/Logging
+cp -R $TMPDIR/addon/Logging $UF/tools 2>/dev/null
+PATH=$UF/tools/Logging/:$PATH
+cp -f $UF/tools/Logging/main.sh $MODPATH/logging.sh
+chmod 0755 $MODPATH/logging.sh
+chown 0.2000 $MODPATH/logging.sh
 
 log_handler() {
 	echo "" >> $INSTLOG
@@ -56,6 +70,15 @@ fi
 log_print() {
   ui_print "$1"
   log_handler "$1"
+}
+
+log_script_chk() {
+	log_handler "$1"
+	echo -e "$(date +"%m-%d-%Y %H:%M:%S") - $1" >> $LOG 2>&1
+}
+
+get_file_value() {
+	cat $1 | grep $2 | sed "s|.*$2||" | sed 's|\"||g'
 }
 
 collect_logs() {
@@ -101,7 +124,7 @@ if $MAGISK; then
 	resetprop >> $INSTLOG 2>&1
 	log_print " Collecting Modules Installed "
   echo "==========================================" >> $INSTLOG 2>&1
-  ls $MOUNTPATH >> $INSTLOG 2>&1
+  ls $MODULEROOT >> $INSTLOG 2>&1
   log_print " Collecting Logs for Installed Files "
   echo "==========================================" >> $INSTLOG 2>&1
   log_handler "$(du -ah $MODPATH)" >> $INSTLOG 2>&1
@@ -133,4 +156,3 @@ log_handler "Logs and information collected."
 
 log_start "Running Log script." >> $INSTLOG 2>&1
 
-cp_ch 
