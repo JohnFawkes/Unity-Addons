@@ -3,7 +3,7 @@
 ## Instructions:
 * Use the function collect_logs in your install.sh to package the logs into a tar.xz into the devices internal storage. The following line needs to be added to your terminal script, if using one, in order to use the logging code in it.
 
-. logging.sh
+. $MODPATH/logging.sh
 
 * The following information is collected
   - System and Vendor build.props
