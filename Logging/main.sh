@@ -7,11 +7,11 @@ grep_prop() {
   sed -n "$REGEX" $FILES 2>/dev/null | head -n 1
 }
 
+NVBASE=/data/adb
 MODDIRNAME=modules_update
 MODULEROOT=$NVBASE/$MODDIRNAME
 MODID=`grep_prop id $TMPDIR/module.prop`
 MODPATH=$MODULEROOT/$MODID
-NVBASE=/data/adb
 MOUNTEDROOT=$NVBASE/modules/$MODID
 MODTITLE=$(grep_prop name $TMPDIR/module.prop)
 VER=$(grep_prop version $TMPDIR/module.prop)
@@ -39,7 +39,12 @@ if [ -d /cache ]; then CACHELOC=/cache; else CACHELOC=/data/cache; fi
 chmod -R 0755 $TMPDIR/addon/Logging
 cp -R $TMPDIR/addon/Logging $UF/tools 2>/dev/null
 PATH=$UF/tools/Logging/:$PATH
-cp -f $UF/tools/Logging/main.sh $MODPATH/logging.sh
+cp -f $UF/tools/Logging/main.sh $MOUNTEDROOT/logging.sh
+sed -i "1i $SHEBANG" $UNITY/logging.sh
+sed -i "s|\$TMPDIR|$MOUNTEDROOT|g" $MODPATH/logging.sh
+sed -i "s|\$MODPATH|$MOUNTEDROOT|g" $MODPATH/logging.sh
+sed -i "s|\$INSTLOG|\$LOG|g" $MODPATH/logging.sh
+sed -i "39,49d" $MODPATH/logging.sh
 chmod 0755 $MODPATH/logging.sh
 chown 0.2000 $MODPATH/logging.sh
 
@@ -73,7 +78,7 @@ log_print() {
 
 log_script_chk() {
 	log_handler "$1"
-	echo -e "$(date +"%m-%d-%Y %H:%M:%S") - $1" >> $LOG 2>&1
+	echo -e "$(date +"%m-%d-%Y %H:%M:%S") - $1" >> $INSTLOG 2>&1
 }
 
 get_file_value() {
@@ -105,7 +110,7 @@ collect_logs() {
 					fi
 					ITEMTPM=$(echo $ITEM | sed 's|$CACHELOC|$CACHELOCTMP|')
 					if [ -f "$ITEMTPM" ]; then
-						cp -af $ITEMTPM $TMPLOGLOC >> $LOG 2>&1
+						cp -af $ITEMTPM $TMPLOGLOC >> $INSTLOG 2>&1
 					else
 						log_handler "$ITEM not available."
 					fi
