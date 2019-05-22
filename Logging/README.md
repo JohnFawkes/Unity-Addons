@@ -8,7 +8,7 @@
 * The following information is collected
   - System and Vendor build.props
   - Installed modules
-  - Installed files for your module along with the size of each file
+  - Installed files for your module
   - ResetProps (Getprops if non magisk)
   - Unity debug log
   - Magisk.log and log.bak
@@ -16,10 +16,6 @@
 * The following functions can be called in your install.sh
   - log_print (ui_print to screen and to install log)
   - log_handler (echos to install log along with date and time)
-  - log_script_chk
-  - get_file_value
-  - collect_logs
-  - grep_prop
     
 ## Credits:
 * [@Didgeridoohan](https://forum.xda-developers.com/member.php?u=4667597) Without him this code is not possible. thanks for allowing me to use and modify

@@ -39,12 +39,12 @@ if [ -d /cache ]; then CACHELOC=/cache; else CACHELOC=/data/cache; fi
 chmod -R 0755 $TMPDIR/addon/Logging
 cp -R $TMPDIR/addon/Logging $UF/tools 2>/dev/null
 PATH=$UF/tools/Logging/:$PATH
-cp -f $UF/tools/Logging/main.sh $MOUNTEDROOT/logging.sh
-sed -i "1i $SHEBANG" $UNITY/logging.sh
+cp_ch -f $UF/tools/Logging/main.sh $MODPATH/logging.sh
+sed -i "1i $SHEBANG" $MODPATH/logging.sh
 sed -i "s|\$TMPDIR|$MOUNTEDROOT|g" $MODPATH/logging.sh
 sed -i "s|\$MODPATH|$MOUNTEDROOT|g" $MODPATH/logging.sh
 sed -i "s|\$INSTLOG|\$LOG|g" $MODPATH/logging.sh
-sed -i "39,49d" $MODPATH/logging.sh
+sed -i "39,50d" $MODPATH/logging.sh
 chmod 0755 $MODPATH/logging.sh
 chown 0.2000 $MODPATH/logging.sh
 
@@ -159,4 +159,3 @@ log_handler "Logs and information collected."
 }
 
 log_start "Running Log script." >> $INSTLOG 2>&1
-
